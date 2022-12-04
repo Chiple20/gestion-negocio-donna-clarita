@@ -1,0 +1,24 @@
+{% extends  "base2.html" %}
+
+{% block title %} Recuperar contraseña {% endblock %}
+
+{% block content %}
+
+<div class="centrar form-outline mb-4">
+    <h1>Doña Clarita</h1>
+
+  </div>
+
+<div >
+  <h5>Su contraseña se ha cambiado correctamente, por favor intente iniciar Sesion</h5>
+</div>
+
+<div class="centrar">
+    <button type="button" class="btn btn-link">
+      <a href="{% url 'login' %}">
+        <p>Iniciar Sesion</p>
+      </a>
+    </button>
+  </div>
+
+{% endblock %}

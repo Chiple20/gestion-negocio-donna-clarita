@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>
+        {% block title %} {% endblock %}
+      </title>
+    <link rel="shortcut icon" href='{% static "imagen/unknown.png" %}'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href='{% static "CSS/Diseño.css" %}'>
+    <!--   POPUP   -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <section class="vh-100">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-9 col-lg-6 col-xl-5">
+              <img src='{% static "imagen/unknown.png" %}'
+              class="img-fluid" alt="Sample image">
+          </div>
+          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+      
+        <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 foot orange">
+        <!-- Copyright -->
+        <br>
+        <br>
+        <br>
+        <div class="text-white mb-3 mb-md-0">
+          Doña Clarita © 2022. All rights reserved.
+        </div>
+        <!-- Copyright -->
+        </div>
+    </section>
+  </body>
+</html>

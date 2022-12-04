@@ -1,0 +1,202 @@
+{% extends  "base.html" %}
+
+{% block title %} Predicción {% endblock %}
+
+{% block subtitle %}
+<a class="navbar-brand" href="javascript:;">Predicción</a>
+{% endblock %}
+
+{% block content %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+  <li>
+    <a href="{% url 'Añadir' %}">
+      <i class="centrar bi bi-person-fill icon"></i>
+      <p>Administrador</p>
+    </a>
+  </li>
+
+{% elif user.id_rol.cargo != 'Administrador' %}
+
+  <li  >
+    <a href="{% url 'dashboard' %}">
+      <i class="centrar bi bi-speedometer2 icon"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+      {% if user.id_rol.cargo == 'Gerente' %}
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Gerente</p>
+          </a>
+        </li>
+
+        {% elif user.id_rol.cargo == 'Jefe de Tienda' %}
+        <li class="active ">
+          <a href="{% url 'predicción' %}">
+            <i class="centrar bi bi-magic icon"></i>
+            <p>Predicción</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Jefe de Tienda</p>
+          </a>
+        </li>
+        
+        {% elif user.id_rol.cargo == 'Cajero' %}
+
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Cajero</p>
+          </a>
+        </li>
+      
+
+      {% endif %}
+
+{% endif %}
+
+{% endblock %}
+
+{% block content2 %}
+
+{% if user.id_rol.cargo == 'Jefe de Tienda' %}
+
+<div class="col-3">
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'predicción' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Total Venta
+  </a>
+  <br>
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'pred2' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Precio segun IPC
+  </a>
+  <br>
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'pred3' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Cantidad a vender
+  </a>
+</div>
+
+
+{% load static %}
+<div class="col-xl-5">
+
+ <form action="" method="POST" class="container row">
+  {% csrf_token %}
+  <fieldset class="row col-xl-12">
+    <legend>Predicción:
+      Precio de acuerdo al Ipc</legend>
+  
+  <div class="col-xl-1"></div>
+    <div class="col-xl-10 form-group">
+      <label for="Nom_productos" >Nombre Producto</label>
+          <select required name="Nom_productos" id="Nom_productos" class="form-control"  required>
+            <option value="1" selected>Harina con polvos de hornear 1kg</option>
+            <option value="3" >Mantequilla con sal 250g</option>
+            <option value="0" >Atun lomitos en aceite 104g drenado</option>
+            <option value="2" >Leche entera sin lactosa 1L</option>
+          </select>
+    </div>
+  <div class="col-xl-1"></div>
+  
+  <div class="col-xl-1"></div>
+    <div class="col-xl-10 form-group">
+      <label for="IPC" > IPC</label>
+      <input type="text" required name="IPC" id="IPC" class="form-control">
+    </div>
+  <div class="col-xl-1"></div>
+  
+  <div class="col-xl-1"></div>
+    <div class="col-xl-10 form-group">
+      <label for="Precio" > Precio</label>
+      <input type="text" required name="Precio" id="Precio" class="form-control" onkeypress="return valideKey(event)">
+    </div>
+  <div class="col-xl-1"></div>
+  
+  <div class="col-xl-1"></div>
+    <div class="col-xl-10 form-group">
+      <label for="Año" >Año</label>
+          <select required name="Año" id="Año" class="form-control"  required>
+            <option value="2022" >2022</option>
+            <option value="2023" >2023</option>
+          </select>
+    </div>
+  <div class="col-xl-1"></div>
+  
+  <div class="col-xl-1"></div>
+    <div class="col-xl-10 form-group">
+      <label for="Mes" > Mes</label>
+          <select required name="Mes" id="Mes" class="form-control"  required>
+            <option value='1'>Enero</option>
+            <option value='2'>Febrero</option>
+            <option value='3'>Marzo</option>
+            <option value='4'>Abril</option>
+            <option value='5'>Mayo</option>
+            <option value='6'>Junio</option>
+            <option value='7'>Julio</option>
+            <option value='8'>Agosto</option>
+            <option value='9'>Septiembre</option>
+            <option value='10'>Octubre</option>
+            <option value='11'>Noviembre</option>
+            <option value='12'>Diciembre</option>
+          </select>
+    </div>
+  <div class="col-xl-1"></div>
+      
+      <button type="submit" class="btn btn-primary btn-block" role="submit">Predecir</button>
+  </fieldset>
+  </form>
+
+</div>
+
+<div class="col-xl-4">
+  <p>IPC: Es el acumulado anual</p>
+  <br>
+  <br>
+  <br>
+  {% if resultado %}
+  
+  <br>
+  <h3 class="Letra">De acuerdo al IPC el precio a esa fecha se estima que sera de: {{resultado}}</h3>
+
+  {% endif %}
+
+</div>
+<script type="text/javascript"> 
+  //Solo numeros
+  function valideKey(evt){
+    
+    // code is the decimal ASCII representation of the pressed key.
+    var code = (evt.which) ? evt.which : evt.keyCode;
+    
+    if(code==8) { // backspace.
+      return true;
+    } else if(code>=48 && code<=57) { // is a number.
+      return true;
+    } else{ // other keys.
+      return false;
+    }
+}
+</script>
+
+{% elif user.id_rol.cargo != 'Jefe de Tienda' %}
+
+<div class="col-1"></div>
+
+<div class="col-9">
+
+<H1>ACCESO DENEGADO</H1>
+<h4>USTED NO POSEE LOS PERMISOS PARA INTERACTUAR CON ESTA PÁGINA</h4>
+<br>
+<h5>Por favor, utilice las opciones que se encuentran en la barra de navegación que se encuentran a su izquierda</h5>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

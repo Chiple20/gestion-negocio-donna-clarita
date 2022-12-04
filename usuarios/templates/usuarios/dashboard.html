@@ -1,0 +1,92 @@
+{% extends  "base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block subtitle %}
+<a class="navbar-brand" href="javascript:;">Dashboard</a>
+{% endblock %}
+
+{% block content %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+  <li>
+    <a href="{% url 'Añadir' %}">
+      <i class="centrar bi bi-person-fill icon"></i>
+      <p>Administrador</p>
+    </a>
+  </li>
+
+{% elif user.id_rol.cargo != 'Administrador' %}
+
+  <li class="active " >
+    <a href="{% url 'dashboard' %}">
+      <i class="centrar bi bi-speedometer2 icon"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+      {% if user.id_rol.cargo == 'Gerente' %}
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Gerente</p>
+          </a>
+        </li>
+
+        {% elif user.id_rol.cargo == 'Jefe de Tienda' %}
+        <li>
+          <a href="{% url 'predicción' %}">
+            <i class="centrar bi bi-magic icon"></i>
+            <p>Predicción</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Jefe de Tienda</p>
+          </a>
+        </li>
+        
+        {% elif user.id_rol.cargo == 'Cajero' %}
+
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Cajero</p>
+          </a>
+        </li>
+      
+
+      {% endif %}
+
+{% endif %}
+
+{% endblock %}
+
+{% block content2 %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+<div class="col-1"></div>
+
+<div class="col-9">
+
+<H1>ACCESO DENEGADO</H1>
+<h4>USTED NO POSEE LOS PERMISOS PARA INTERACTUAR CON ESTA PÁGINA</h4>
+<br>
+<h5>Por favor, utilice las opciones que se encuentran en la barra de navegación que se encuentran a su izquierda</h5>
+
+</div>
+
+{% elif user.id_rol.cargo != 'Administrador' %}
+
+<div class="col-12">
+  
+  <iframe title="Jefe de tienda - Jefe de Tienda" width="100%" height="612" src='{{user.link}}' frameborder="0" allowFullScreen="true"></iframe>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

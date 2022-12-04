@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--     CSS LINKS     -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <title>Formularios Admin</title>
+</head>
+<body>
+    <h1>Formularios del admin</h1>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="card" >
+            <div class="card-body">
+                <form action="AgregarUsuario" method="post"> {% csrf_token %}
+                    <div class="form-group">
+                        <label>Nombre:</label>
+                        <input type="text" name="innombre" id="innombre" class="form-control" placeholder="nombre" required > </inputtype>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido:</label>
+                        <input type="text" name="inapellido" id="inapellido" class="form-control" placeholder="apellido" required > </inputtype>
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña:</label>
+                        <input type="password" name="inpassword" id="inpassword" class="form-control" placeholder="Contraseña" required > </inputtype>
+                    </div>
+                    <div class="form-group">
+                        <label>correo electronico:</label>
+                        <input type="email" name="incorreo" id="incorreo" class="form-control" placeholder="correo" required > </inputtype>
+                    </div>
+                    <div class="form-group">
+                        <label>Rol:</label>
+                        
+                        <select name="inrol" id="inrol" class="form-control"  required>
+                            <option value="2">Gerente</option>
+                            <option value="3">Jefe de tienda</option>
+                            <option value="4">Cajero</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sucursal:</label>
+                        <select name="insucursal" id="insucursal" class="form-control"  required>
+                            <option value="1" selected>San Bernardo 1</option>
+                        </select>
+                    </div>  
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success btn-block text-white" > Botoninador</inputtype>
+                    </div>
+                </form>
+                  
+            </div>
+        </div>
+
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Password</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Sucursal</th> 
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for w in usuarios %}
+                        <tr>
+                            <td>{{w.username}}</td>
+                            <td>{{w.last_name}}</td>
+                            <td>{{w.password}}</td>
+                            <td>{{w.email}}</td>
+                            <td>{{w.id_rol}}</td>
+                            <td>{{w.id_sucursal}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+       </div> 
+    </div>
+
+</body>
+</html>

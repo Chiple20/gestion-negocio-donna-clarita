@@ -1,0 +1,120 @@
+{% extends  "base.html" %}
+
+{% block title %} Perfil {% endblock %}
+
+{% block subtitle %}
+<a class="navbar-brand" href="javascript:;">Perfil</a>
+{% endblock %}
+
+{% block content %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+  <li>
+    <a href="{% url 'Añadir' %}">
+      <i class="centrar bi bi-person-fill icon"></i>
+      <p>Administrador</p>
+    </a>
+  </li>
+
+{% elif user.id_rol.cargo != 'Administrador' %}
+
+  <li >
+    <a href="{% url 'dashboard' %}">
+      <i class="centrar bi bi-speedometer2 icon"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+      {% if user.id_rol.cargo == 'Gerente' %}
+        <li class="active ">
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Gerente</p>
+          </a>
+        </li>
+
+        {% elif user.id_rol.cargo == 'Jefe de Tienda' %}
+        <li>
+          <a href="{% url 'predicción' %}">
+            <i class="centrar bi bi-magic icon"></i>
+            <p>Predicción</p>
+          </a>
+        </li>
+        <li class="active ">
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Jefe de Tienda</p>
+          </a>
+        </li>
+        
+        {% elif user.id_rol.cargo == 'Cajero' %}
+
+        <li class="active ">
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Cajero</p>
+          </a>
+        </li>
+      
+
+      {% endif %}
+
+{% endif %}
+
+{% endblock %}
+
+{% block content2 %}
+
+<div class="col-3">
+
+</div>
+
+<div class="col-5">
+    <fieldset>
+      <legend>Perfil de Usuario</legend>
+        <div class="section centrar">
+          <form action="Eliminar">
+  
+          <div class="col s6 MargenDiv">
+              <label>Nombre:</label>
+              <br>
+              {{user.username}}</div>
+  
+          <div class="col s6 MargenDiv">
+              <label>Apellido:</label>
+              <br>
+              {{user.last_name}}
+              <br></div>
+
+            <div class="col s6 MargenDiv">
+                <label>Rol:</label>
+                <br>
+                {{user.id_rol.cargo}}
+                <br></div>
+  
+          <div class="col s6 MargenDiv">
+              <label>Sucursal:</label>
+              <br>
+              {{user.id_sucursal.sucursal}}
+              <br></div>
+  
+          <div class="col s6 MargenDiv">
+              <label>correo electronico:</label>
+              <br>
+              {{user.email}}
+              <br></div>
+  
+          <div class="centrar">
+              <button type="button" class="btn btn-link">
+                <a href="{% url 'Password' %}">
+                  <p>Cambia tu contraseña</p>
+                </a>
+          </button>
+        </form>                       
+        </div>
+    </fieldset>
+  
+  </div>
+
+{% endblock %}

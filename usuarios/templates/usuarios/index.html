@@ -1,0 +1,95 @@
+{% extends  "base.html" %}
+
+{% block title %} Index {% endblock %}
+
+{% block subtitle %}
+{% load static %}
+<div class="me-auto">
+  <img src='{% static "imagen/dona1.png" %}' class="img-fluid" width="100" height="100" alt="">
+  <!-- Uncomment below if you prefer to use an image logo -->
+</div>
+{% endblock %}
+
+{% block content %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+  <li>
+    <a href="{% url 'Añadir' %}">
+      <i class="centrar bi bi-person-fill icon"></i>
+      <p>Administrador</p>
+    </a>
+  </li>
+
+{% elif user.id_rol.cargo != 'Administrador' %}
+
+  <li  >
+    <a href="{% url 'dashboard' %}">
+      <i class="centrar bi bi-speedometer2 icon"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+      {% if user.id_rol.cargo == 'Gerente' %}
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Gerente</p>
+          </a>
+        </li>
+
+        {% elif user.id_rol.cargo == 'Jefe de Tienda' %}
+        <li>
+          <a href="{% url 'predicción' %}">
+            <i class="centrar bi bi-magic icon"></i>
+            <p>Predicción</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Jefe de Tienda</p>
+          </a>
+        </li>
+        
+        {% elif user.id_rol.cargo == 'Cajero' %}
+
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Cajero</p>
+          </a>
+        </li>
+      
+
+      {% endif %}
+
+{% endif %}
+
+{% endblock %}
+
+{% block content2 %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="fade-up">
+      <div>
+        <h1>Bienvenidos a GNDC</h1>
+        <h3>Menú de selección de opciones disponibles a utilizar en el sistema se encuentran a la izquierda de su pantalla</h3>
+      </div>
+    </div>
+    <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left">
+      <img src='{% static "imagen/features-1-removebg-preview.png" %}' class="img-fluid" alt="">
+    </div>
+  </div>
+</div>
+    
+
+
+{% load static %}
+
+
+
+
+
+{% endblock %}

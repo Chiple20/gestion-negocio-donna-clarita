@@ -1,0 +1,59 @@
+{% extends  "base2.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+
+<form class="usuarios"  method="post">
+  {% csrf_token %}
+
+  <div class="centrar form-outline mb-4">
+    <h1>Doña Clarita</h1>
+  </div>
+
+  {% if form.errors %}
+    <script>
+      Swal.fire({
+        "title": "Error",
+            "text": "Credenciales Incorrectas, intente nuevamente",
+            "icon": "error", 
+            "timer": "2000",
+            "showConfirmButton":false
+      })
+    </script>
+    <p>Sus credenciales son Incorrectas, por favor intente nuevamente</p>
+  {% endif%}
+  <!-- Email input -->
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form3Example3">Correo Electronico</label>
+    <input type="email" id='id_correo' name="username" class="form-control form-control-lg"
+      placeholder="Ingrese un Correo valido" />
+    
+  </div>
+
+  <!-- Password input -->
+  <div class="form-outline mb-3">
+    <label class="form-label" for="form3Example4">Contraseña</label>
+    <input type="password" type="password" id="id_password" name="password" required class="form-control form-control-lg"
+      placeholder="Ingrese Contraseña" />
+  </div>
+
+  <div class="centrar">
+    <button type="button" class="btn btn-link">
+      <a href="{% url 'password_reset' %}">
+        <p>Olvido su contraseña?</p>
+      </a>
+    </button>
+
+  </div>
+
+  <div class="text-center text-lg-start mt-4 pt-2">
+    <input class="button btn btn-orange btn-lg" type="submit" value="Iniciar Sesion" 
+      style="padding-left: 2.5rem; padding-right: 2.5rem;">
+  </div>
+  
+
+</form>
+
+{% endblock %}

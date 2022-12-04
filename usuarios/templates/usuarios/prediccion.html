@@ -1,0 +1,155 @@
+{% extends  "base.html" %}
+
+{% block title %} Predicción {% endblock %}
+
+{% block subtitle %}
+<a class="navbar-brand" href="javascript:;">Predicción</a>
+{% endblock %}
+
+{% block content %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+  <li>
+    <a href="{% url 'Añadir' %}">
+      <i class="centrar bi bi-person-fill icon"></i>
+      <p>Administrador</p>
+    </a>
+  </li>
+
+{% elif user.id_rol.cargo != 'Administrador' %}
+
+  <li  >
+    <a href="{% url 'dashboard' %}">
+      <i class="centrar bi bi-speedometer2 icon"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+      {% if user.id_rol.cargo == 'Gerente' %}
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Gerente</p>
+          </a>
+        </li>
+
+        {% elif user.id_rol.cargo == 'Jefe de Tienda' %}
+        <li class="active ">
+          <a href="{% url 'predicción' %}">
+            <i class="centrar bi bi-magic icon"></i>
+            <p>Predicción</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Jefe de Tienda</p>
+          </a>
+        </li>
+        
+        {% elif user.id_rol.cargo == 'Cajero' %}
+
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Cajero</p>
+          </a>
+        </li>
+      
+
+      {% endif %}
+
+{% endif %}
+
+{% endblock %}
+
+{% block content2 %}
+
+{% if user.id_rol.cargo == 'Jefe de Tienda' %}
+
+<div class="col-3">
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'predicción' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Total Venta
+  </a>
+  <br>
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'pred2' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Precio segun IPC
+  </a>
+  <br>
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'pred3' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Cantidad a vender
+  </a>
+</div>
+
+
+{% load static %}
+<div class="col-5">
+  <form action="" id="pre" method="POST" class="container row">
+    {% csrf_token %}
+    
+    <fieldset class="row col-12">
+      <legend>Predicción:
+        Total de Venta</legend>
+        <div class="col-xl-1"></div>
+        <div class="col-xl-10 form-group">
+          <label for="Año" >Año</label>
+              <select required name="Año" id="Año" class="form-control"  required>
+                <option value="2022" >2022</option>
+                <option value="2023" >2023</option>
+              </select>
+        </div>
+      <div class="col-xl-1"></div>
+      
+      <div class="col-xl-1"></div>
+        <div class="col-xl-10 form-group">
+          <label for="Mes" > Mes</label>
+              <select required name="Mes" id="Mes" class="form-control"  required>
+                <option value='01'>Enero</option>
+                <option value='02'>Febrero</option>
+                <option value='03'>Marzo</option>
+                <option value='04'>Abril</option>
+                <option value='05'>Mayo</option>
+                <option value='06'>Junio</option>
+                <option value='07'>Julio</option>
+                <option value='08'>Agosto</option>
+                <option value='09'>Septiembre</option>
+                <option value='10'>Octubre</option>
+                <option value='11'>Noviembre</option>
+                <option value='12'>Diciembre</option>
+              </select>
+        </div>
+      <div class="col-xl-1"></div> 
+        <button type="submit" class="btn btn-primary btn-block" onclick="pregunta()" role="submit">Predecir</button>
+    </fieldset>
+  </form>
+</div>
+
+<div class="col-xl-4">
+  <br>
+  {% if resultado %}
+  
+  <br>
+  <h3 class="Letra">El total de ventas sera de: {{resultado}}</h3>
+
+  {% endif %}
+
+</div>
+
+
+{% elif user.id_rol.cargo != 'Jefe de Tienda' %}
+
+<div class="col-1"></div>
+
+<div class="col-9">
+
+<H1>ACCESO DENEGADO</H1>
+<h4>USTED NO POSEE LOS PERMISOS PARA INTERACTUAR CON ESTA PÁGINA</h4>
+<br>
+<h5>Por favor, utilice las opciones que se encuentran en la barra de navegación que se encuentran a su izquierda</h5>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

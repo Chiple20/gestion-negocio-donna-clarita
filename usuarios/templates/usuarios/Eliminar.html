@@ -1,0 +1,195 @@
+{% extends  "base.html" %}
+
+{% block title %} Panel de administración {% endblock %}
+
+{% block subtitle %}
+<a class="navbar-brand" href="javascript:;">Eliminar</a>
+{% endblock %}
+
+{% block content %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+  <li class="active ">
+    <a href="{% url 'Añadir' %}">
+      <i class="centrar bi bi-person-fill icon"></i>
+      <p>Administrador</p>
+    </a>
+  </li>
+
+{% elif user.id_rol.cargo != 'Administrador' %}
+
+  <li >
+    <a href="{% url 'dashboard' %}">
+      <i class="centrar bi bi-speedometer2 icon"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+      {% if user.id_rol.cargo == 'Gerente' %}
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Gerente</p>
+          </a>
+        </li>
+
+        {% elif user.id_rol.cargo == 'Jefe de Tienda' %}
+        <li>
+          <a href="{% url 'predicción' %}">
+            <i class="centrar bi bi-magic icon"></i>
+            <p>Predicción</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Jefe de Tienda</p>
+          </a>
+        </li>
+        
+        {% elif user.id_rol.cargo == 'Cajero' %}
+
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Cajero</p>
+          </a>
+        </li>
+      
+
+      {% endif %}
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block content2 %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+<div class="col-3">
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'Añadir' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Añadir
+  </a>
+  <br>
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'Listado' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Listado
+  </a>
+</div>
+<div class="col-4">
+  <fieldset>
+    <legend>Eliminar usuario</legend>
+
+      <div class="section centrar">
+        
+        <form action="EliminaUsuario" id="Eli" method="post"> {% csrf_token %}
+        
+        <div class="col s6">
+            <label>Nombre:</label>
+            <br>
+            <input type="text" name="innombre" id="innombre" class="form-control"  value="{{usuariof.username}}" disabled> </inputtype>
+        </div>
+
+        <div class="col s6">
+            <label>Apellido:</label>
+            <br>
+            <input type="text" name="inapellido" id="inapellido" class="form-control"  value="{{usuariof.last_name}}" disabled > </inputtype>
+            <br></div>
+
+        <div class="col s6">
+            <label>Sucursal:</label>
+            <br>
+            <input type="text" name="inrol" id="inrol" class="form-control" value="{{usuariof.id_sucursal}}" disabled > </inputtype>
+            
+            <br></div>
+
+        <div class="col s6">
+            <label>correo electronico:</label>
+            <br>
+            <input type="email" name="incorreo" id="incorreo" class="form-control" value="{{usuariof.email}}"disabled> </inputtype>
+            
+            <br></div>
+
+        <div class="col s6">
+            <label>Rol:</label>
+            <br>
+            <input type="text" name="inrol" id="inrol" class="form-control" value="{{usuariof.id_rol}}" disabled > </inputtype>
+            
+            <br></div>
+        
+        <div class="col s12"></div>
+        
+        <div class="col s12 center">
+          <button type="submit" class="btn btn-outline-danger btn-block form-control" onclick="pregunta()">Eliminar usuario</button>
+        </div> 
+        
+      </form>                       
+      </div>
+  </fieldset>
+
+</div>
+
+<div class="col-4">
+  <fieldset>
+      <legend>Usuarios</legend>
+          <div class="section">
+              <form action="buscaLista" method="post"> {% csrf_token %}
+                <div class="col s6">
+                  <input class="form-control mr-sm-2" type="search" name="buscar" placeholder="Nombre, Apellido, Correo" value="{{request.POST.buscar}}">                       
+                  <button class="btn btn-outline-secondary form-control" type="submit">Search</button>
+                </div>                                   
+              </form>  
+          </div>
+      </fieldset>
+  </div>
+</div>
+<!-- trucazo -->
+<script type="text/javascript"> 
+  function pregunta() {
+    event.preventDefault()
+    Swal.fire({
+    "title": "¿Estas Seguro de ELIMINAR?",
+    "text": "una vez realizada esta acción no se puede deshacer",
+    "icon": "question",
+    "showCancelButton":true,
+    "cancelButtonText":"No, Cancelar",
+    "confirmButtonText":"Si, Eliminar",
+    "reverseButtons":true,
+    "confirmButtonColor":"#ef8157"
+    })
+    .then(function(result)  {
+      if(result.isConfirmed){
+        document.getElementById("incorreo").disabled=false,
+        document.getElementById("Eli").submit();}
+      else{
+        console.log('No submission.')
+      }
+        
+    })
+
+    }
+</script>
+<script type="text/javascript">
+  function ActivarCampoOtro(){
+     document.getElementById("incorreo").disabled=false}
+</script>
+
+  {% elif user.id_rol.cargo != 'Administrador' %}
+
+    <div class="col-1"></div>
+
+    <div class="col-9">
+
+      <H1>ACCESO DENEGADO</H1>
+      <h4>USTED NO POSEE LOS PERMISOS PARA INTERACTUAR CON ESTA PÁGINA</h4>
+      <br>
+      <h5>Por favor, utilice las opciones que se encuentran en la barra de navegación que se encuentran a su izquierda</h5>
+
+    </div>
+  
+
+  {% endif %}
+{% endblock %}
+

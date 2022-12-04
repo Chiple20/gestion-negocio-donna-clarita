@@ -1,0 +1,118 @@
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color:#f4f3ef;
+}
+
+.box {
+
+  border: 3px solid #000000;
+  background-color:#FFFFFF;;
+  padding: 1px;
+  border-radius: 1px;
+  float: center;
+  margin: 40%;
+  margin-top: 12%;
+}
+
+.box2 {
+  border: 3px solid #000000;
+  background-color:#FFFFFF;;
+  padding: 1px;
+  border-radius: 1px;
+  float: center;
+  margin-top: 1px;
+  width: auto;
+  height: 80px;
+}
+
+.boxIndex {
+  border: 3px solid #000000;
+  background-color:#FFFFFF;;
+  padding: 1px;
+  border-radius: 1px;
+  float: center;
+  margin-top: 1px;
+  width: 100%;
+  height: 550px;
+}
+
+.contenedor {
+  width: 100%;
+  height: 100%;
+  background-color: #0099FF;
+  
+  }
+
+.logo2 {
+height: 95%; width: 95%;
+}
+
+
+.boton {
+border: 1px solid #000000;
+}
+
+.centrar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CentrarText{
+text-align: center;
+}
+
+.icon{
+font-size: 64px;
+height: 100%; width: 100%;
+}
+
+.izq{
+display: flex;
+align-items: left;
+justify-content: left;
+}
+
+.orange{
+background-color: #FD9742;
+}
+
+.btn-orange {
+color: #fff;
+background-color: #fd7e14;
+border-color: #fd7e14;
+}
+
+fieldset {
+background-color: #eeeeee;
+}
+
+legend {
+background-color: gray;
+color: white;
+padding: 5px 10px;
+}
+
+.MargenDiv {
+
+
+margin-top: 1vw;
+}
+
+
+.foot {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: right;
+}
+
+.Letra {
+
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  
+  }

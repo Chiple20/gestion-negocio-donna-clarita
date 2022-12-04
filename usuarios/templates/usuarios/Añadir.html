@@ -1,0 +1,175 @@
+{% extends  "base.html" %}
+
+{% block title %} Panel de administración {% endblock %}
+
+
+{% block subtitle %}
+<a class="navbar-brand" href="javascript:;">Añadir</a>
+{% endblock %}
+
+{% block content %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+  <li class="active ">
+    <a href="{% url 'Añadir' %}">
+      <i class="centrar bi bi-person-fill icon"></i>
+      <p>Administrador</p>
+    </a>
+  </li>
+
+{% elif user.id_rol.cargo != 'Administrador' %}
+
+  <li >
+    <a href="{% url 'dashboard' %}">
+      <i class="centrar bi bi-speedometer2 icon"></i>
+      <p>Dashboard</p>
+    </a>
+  </li>
+
+      {% if user.id_rol.cargo == 'Gerente' %}
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Gerente</p>
+          </a>
+        </li>
+
+        {% elif user.id_rol.cargo == 'Jefe de Tienda' %}
+        <li>
+          <a href="{% url 'predicción' %}">
+            <i class="centrar bi bi-magic icon"></i>
+            <p>Predicción</p>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Jefe de Tienda</p>
+          </a>
+        </li>
+        
+        {% elif user.id_rol.cargo == 'Cajero' %}
+
+        <li>
+          <a href="{% url 'Perfil' %}">
+            <i class="centrar bi bi-person-fill icon"></i>
+            <p>Cajero</p>
+          </a>
+        </li>
+      
+
+      {% endif %}
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block content2 %}
+
+{% if user.id_rol.cargo == 'Administrador' %}
+
+<div class="col-3">
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'Añadir' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Añadir
+  </a>
+  <br>
+  <a class="btn col-8" data-toggle="collapse" href="{% url 'Listado' %}" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Listado
+  </a>
+</div>
+        <div class="col-4">
+            <fieldset>
+              <legend>Crear usuario</legend>
+              <div class="section centrar">
+                      <form action="AgregarUsuario" method="POST"> {% csrf_token %}
+
+                      <div class="col s6 form-group">
+                          <label>Nombre:</label>
+                          <br>
+                          <input type="text" name="innombre" id="innombre" class="form-control" placeholder="nombre" required onkeypress="return soloLetras(event)"> </inputtype>
+                      </div>
+                      <div class="col s6 form-group ">
+                          <label>Apellido:</label>
+                          <br>
+                          <input type="text" name="inapellido" id="inapellido" class="form-control" placeholder="apellido" required onkeypress="return soloLetras(event)"> </inputtype>
+                      </div>
+                      <div class="col s6 form-group">
+                          <label>Sucursal:</label>
+                          <br>
+                          <select name="insucursal" id="insucursal" class="form-control"  required>
+                              <option value="1" selected>San Bernardo 1</option>
+                              <option value="1" disabled>Puente Alto</option>
+                          </select>
+                      </div>
+                      <div class="col s6 form-group">
+                          <label>correo electronico:</label>
+                          <br>
+                          <input type="email" name="incorreo" id="incorreo" class="form-control" placeholder="DoñaClarita@gmail.com"required > </inputtype>
+                      </div>
+                      <div class="col s6 form-group">
+                          <label>Rol:</label>
+                          <br>
+                          <select name="inrol" id="inrol" required>
+                              <option value="2">Gerente</option>
+                              <option value="3">Jefe de tienda</option>
+                              <option value="4" selected >Cajero</option>
+                          </select>
+                      </div>
+                      <div class="col s6 form-group">
+                        <label>Dashboard:</label>
+                        <br>
+                        <input type="url" name="inlink" id="inlink" class="form-control" placeholder="https://app.powerbi.com/view?" required > </inputtype>
+                      </div>
+                      <div class="col s12"></div>
+                      <div class="col s12 center">
+                        <button type="submit" class="btn btn-outline-success form-control">Añadir usuario</button>
+                      </div> 
+                      </form>
+                      <br>
+                      <br>
+                      <br>
+                    </div>
+                </fieldset>
+
+                <script>
+                  function soloLetras(e){
+                     key = e.keyCode || e.which;
+                     tecla = String.fromCharCode(key).toLowerCase();
+                     letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+                     especiales = "8-37-39-46";
+              
+                     tecla_especial = false
+                     for(var i in especiales){
+                          if(key == especiales[i]){
+                              tecla_especial = true;
+                              break;
+                          }
+                      }
+              
+                      if(letras.indexOf(tecla)==-1 && !tecla_especial){
+                          return false;
+                      }
+                  }
+              </script>
+              
+
+          </div>
+
+          {% elif user.id_rol.cargo != 'Administrador' %}
+
+          <div class="col-1"></div>
+
+            <div class="col-9">
+
+            <H1>ACCESO DENEGADO</H1>
+            <h4>USTED NO POSEE LOS PERMISOS PARA INTERACTUAR CON ESTA PÁGINA</h4>
+            <br>
+            <h5>Por favor, utilice las opciones que se encuentran en la barra de navegación que se encuentran a su izquierda</h5>
+
+            </div>
+          
+        
+          {% endif %}
+{% endblock %}
