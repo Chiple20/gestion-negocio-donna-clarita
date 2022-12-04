@@ -325,8 +325,9 @@ def buscaLista(request):
             print(buscaUsuario)
             if buscaUsuario != "":
                 try:
-                    usuario = Usuario.objects.all()
-                    usuario = Usuario.objects.filter(Q(email = buscaUsuario))
+                    usuario = Usuario()
+                    #usuario = Usuario.objects.filter(Q(email = buscaUsuario)).distinct()
+                    usuario= Usuario.objects.get(email=buscaUsuario)
                     print(usuario)
                     if usuario is not None:
                         print("usuario =", usuario)
@@ -349,10 +350,9 @@ def buscamod(request):
             print(buscaUsuario)
             if buscaUsuario != "":
                 try:
-                    usuario = Usuario.objects.all()
-                    usuario = Usuario.objects.filter(
-                        Q(email = buscaUsuario)
-                        ).distinct()
+                    usuario = Usuario()
+                    #usuario = Usuario.objects.filter(Q(email = buscaUsuario)).distinct()
+                    usuario= Usuario.objects.get(email=buscaUsuario)
                     print(usuario)
                     if usuario is not None:
                         print("usuario =", usuario)
@@ -360,7 +360,7 @@ def buscamod(request):
                     else:
                         return render(request, 'usuarios/Modificar.html',{})
                 except usuario.DoesNotExist:
-                    messages.error(request,"ese usuario no existe")
+                    messages.error(request,"El usuario no xiste")
                     return render(request, 'usuarios/Modificar.html', {})
             else:
                 return render(request, 'usuarios/Modificar.html', {})
