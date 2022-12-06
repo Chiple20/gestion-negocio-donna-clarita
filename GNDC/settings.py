@@ -30,7 +30,7 @@ SECRET_KEY = '93l(+vpmkg)t3yeu4(^v09$%h5172e7moc!glr5-tkm2j1judn'
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-#DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
