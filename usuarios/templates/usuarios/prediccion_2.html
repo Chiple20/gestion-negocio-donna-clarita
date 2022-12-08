@@ -98,7 +98,7 @@
           <select required name="Nom_productos" id="Nom_productos" class="form-control"  required>
             <option value="1" selected>Harina con polvos de hornear 1kg</option>
             <option value="3" >Mantequilla con sal 250g</option>
-            <option value="0" >Atun lomitos en aceite 104g drenado</option>
+            <option value="0" >Atún lomitos en aceite 104g drenado</option>
             <option value="2" >Leche entera sin lactosa 1L</option>
           </select>
     </div>
@@ -156,14 +156,20 @@
 
 <div class="col-xl-4">
   <p>IPC: Es el acumulado anual</p>
-  <br>
-  <br>
-  <br>
-  {% if resultado %}
-  
-  <br>
-  <h3 class="Letra">De acuerdo al IPC el precio a esa fecha se estima que sera de: {{resultado}}</h3>
 
+  {% if resultado %}
+  <br>
+  {% if request.POST.Nom_productos == '0' %}
+  <h3 class="Letra"></h3> 
+  <h3 class="Letra">De acuerdo al IPC: {{request.POST.IPC}}, el precio de Atún lomitos en aceite 104g drenado, en el periodo {{request.POST.Año}}-{{request.POST.Mes}}, se estima que será de: {{resultado}}</h3>
+  {% elif request.POST.Nom_productos == '1' %}
+  <h3 class="Letra">De acuerdo al IPC: {{request.POST.IPC}}, el precio de Harina con polvos de hornear 1 kg, en el periodo  {{request.POST.Año}}-{{request.POST.Mes}}, se estima que será de: {{resultado}}</h3>
+  {% elif request.POST.Nom_productos == '2' %}
+  <h3 class="Letra">De acuerdo al IPC: {{request.POST.IPC}}, el precio del Leche entera sin lactosa 1L, en el periodo {{request.POST.Año}}-{{request.POST.Mes}}, se estima que será de: {{resultado}}</h3>
+  {% elif request.POST.Nom_productos == '3' %}
+  <h3 class="Letra">De acuerdo al IPC: {{request.POST.IPC}}, el precio de la Mantequilla con sal 250g, en el periodo {{request.POST.Año}}-{{request.POST.Mes}}, se estima que será de: {{resultado}}</h3>
+  {% endif %}
+ 
   {% endif %}
 
 </div>

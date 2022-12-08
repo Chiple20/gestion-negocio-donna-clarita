@@ -97,14 +97,14 @@
         <label for="Categoria" >Categoría de Producto</label>
             <select required name="Categoria" id="Categoria" class="form-control"  required>
               <option value="5" selected>Despensa</option>
-              <option value="7" >Lacteos</option>
+              <option value="7" >Lácteos</option>
               <option value="3" >Congelados</option>
               <option value="9" >Vinos, Cervezas y Licores</option>
               <option value="0" >Belleza y Cuidado personal</option>
               <option value="4" >Desayuno y Dulces</option>
               <option value="6" >Frutas y Verduras</option>
-              <option value="1" >Carniceria</option>
-              <option value="8" >Pescaderia</option>
+              <option value="1" >Carnicería</option>
+              <option value="8" > Pescadería</option>
               <option value="2" >Comidas Preparadas</option>
             </select>
       </div>
@@ -153,8 +153,28 @@
   {% if resultado %}
   
   <br>
-  <h3 class="Letra">Se estima que se venderan  una cantidad de {{resultado}} productos</h3>
-
+    {% if request.POST.Categoria == '0' %}
+    <h3 class="Letra">Se estima que para Belleza y Cuidado personal se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '1' %}
+    <h3 class="Letra">Se estima que para Carnicería se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '2' %}
+    <h3 class="Letra">Se estima que para Comidas Preparadas se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '3' %}
+    <h3 class="Letra">Se estima que para Congelados se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '4' %}
+    <h3 class="Letra">Se estima que para Desayuno y Dulces se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '5' %}
+    <h3 class="Letra">Se estima que para Despensa se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '6' %}
+    <h3 class="Letra">Se estima que para Frutas y Verduras se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '7' %}
+    <h3 class="Letra">Se estima que para Lácteos se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '8' %}
+    <h3 class="Letra">Se estima que para  Pescadería se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+    {% elif request.POST.Categoria == '9' %}
+    <h3 class="Letra">Se estima que para Vinos, Cervezas y Licores se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
+  {% endif %}
+ 
   {% endif %}
 
 </div>

@@ -128,10 +128,8 @@
 <div class="col-xl-4">
   <br>
   {% if resultado %}
-  
   <br>
-  <h3 class="Letra">El total de ventas sera de: {{resultado}}</h3>
-
+  <h3 class="Letra">El total de ventas  para el periodo {{request.POST.Año}} - {{request.POST.Mes}}, será de: {{resultado}}</h3>
   {% endif %}
 
 </div>
