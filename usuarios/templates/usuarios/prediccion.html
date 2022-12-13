@@ -124,15 +124,25 @@
     </fieldset>
   </form>
 </div>
+<h1></h1>
+{% if messages %}
 
-<div class="col-xl-4">
-  <br>
-  {% if resultado %}
-  <br>
-  <h3 class="Letra">El total de ventas  para el periodo {{request.POST.Año}} - {{request.POST.Mes}}, será de: {{resultado}}</h3>
-  {% endif %}
-
-</div>
+  {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+      <script>
+        Swal.fire({
+          "imageUrl": '{% static "imagen/ball.gif" %}',
+          "imageWidth": "150",
+          "imageHeight": "150",
+          "title": "El total de ventas será de: ",
+          "html": "<h3><b>{{resultado}}</b></h3>",
+          "confirmButtonColor":"#6bd098",
+          "imageAlt": 'Custom image',
+        })
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
 
 
 {% elif user.id_rol.cargo != 'Jefe de Tienda' %}

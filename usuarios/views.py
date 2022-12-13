@@ -61,6 +61,7 @@ def predicción(request):
             "variables": variables,
             "resultado":final
         }
+        messages.info(request,"Su Resultado es:")
         return render(request,'usuarios/prediccion.html', contexto)
 
 @login_required
@@ -101,6 +102,7 @@ def pred2(request):
             "variables": variables,
             "resultado":final
         }
+        messages.info(request,"Su Resultado es:")
         return render(request,'usuarios/prediccion_2.html', contexto)
 
 @login_required        
@@ -137,6 +139,7 @@ def pred3(request):
             "variables": variables,
             "resultado":final
         }
+        messages.info(request,"Su Resultado es:")
         return render(request,'usuarios/prediccion_3.html', contexto)
 
 @login_required

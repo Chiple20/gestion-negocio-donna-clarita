@@ -154,25 +154,26 @@
 
 </div>
 
-<div class="col-xl-4">
-  <p>IPC: Es el acumulado anual</p>
+{% if messages %}
 
-  {% if resultado %}
-  <br>
-  {% if request.POST.Nom_productos == '0' %}
-  <h3 class="Letra"></h3> 
-  <h3 class="Letra">De acuerdo al IPC: {{request.POST.IPC}}, el precio de Atún lomitos en aceite 104g drenado, en el periodo {{request.POST.Año}}-{{request.POST.Mes}}, se estima que será de: {{resultado}}</h3>
-  {% elif request.POST.Nom_productos == '1' %}
-  <h3 class="Letra">De acuerdo al IPC: {{request.POST.IPC}}, el precio de Harina con polvos de hornear 1 kg, en el periodo  {{request.POST.Año}}-{{request.POST.Mes}}, se estima que será de: {{resultado}}</h3>
-  {% elif request.POST.Nom_productos == '2' %}
-  <h3 class="Letra">De acuerdo al IPC: {{request.POST.IPC}}, el precio del Leche entera sin lactosa 1L, en el periodo {{request.POST.Año}}-{{request.POST.Mes}}, se estima que será de: {{resultado}}</h3>
-  {% elif request.POST.Nom_productos == '3' %}
-  <h3 class="Letra">De acuerdo al IPC: {{request.POST.IPC}}, el precio de la Mantequilla con sal 250g, en el periodo {{request.POST.Año}}-{{request.POST.Mes}}, se estima que será de: {{resultado}}</h3>
+{% for message in messages %}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+    <script>
+      Swal.fire({
+        "imageUrl": '{% static "imagen/ball.gif" %}',
+        "imageWidth": "150",
+        "imageHeight": "150",
+        "title": "Se estima que el precio sera de:",
+        "html": "<h3><b>{{resultado}}</b></h3>",
+        "confirmButtonColor":"#6bd098",
+        "imageAlt": 'Custom image',
+      })
+    </script>
   {% endif %}
- 
-  {% endif %}
+{% endfor %}
+{% endif %}
 
-</div>
+
 <script type="text/javascript"> 
   //Solo numeros
   function valideKey(evt){

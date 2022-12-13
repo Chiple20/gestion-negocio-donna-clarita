@@ -145,39 +145,26 @@
   </form>
 </div>
 
-<div class="col-xl-4">
-  <br>
-  <br>
-  <br>
 
-  {% if resultado %}
-  
-  <br>
-    {% if request.POST.Categoria == '0' %}
-    <h3 class="Letra">Se estima que para Belleza y Cuidado personal se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '1' %}
-    <h3 class="Letra">Se estima que para Carnicería se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '2' %}
-    <h3 class="Letra">Se estima que para Comidas Preparadas se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '3' %}
-    <h3 class="Letra">Se estima que para Congelados se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '4' %}
-    <h3 class="Letra">Se estima que para Desayuno y Dulces se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '5' %}
-    <h3 class="Letra">Se estima que para Despensa se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '6' %}
-    <h3 class="Letra">Se estima que para Frutas y Verduras se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '7' %}
-    <h3 class="Letra">Se estima que para Lácteos se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '8' %}
-    <h3 class="Letra">Se estima que para  Pescadería se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-    {% elif request.POST.Categoria == '9' %}
-    <h3 class="Letra">Se estima que para Vinos, Cervezas y Licores se venderan  una cantidad de {{resultado}} productos en el periodo {{request.POST.Año}}-{{request.POST.Mes}}  </h3>
-  {% endif %}
- 
-  {% endif %}
+  {% if messages %}
 
-</div>
+  {% for message in messages %}
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+      <script>
+        Swal.fire({
+          "imageUrl": '{% static "imagen/ball.gif" %}',
+          "imageWidth": "150",
+          "imageHeight": "150",
+          "title": "Se estima que se venderan una cantidad de:",
+          "html": "<h3><b>{{resultado}}</b> </b><b>productos</b> </h3>",
+          "confirmButtonColor":"#6bd098",
+          "imageAlt": 'Custom image',
+        })
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
 
 {% elif user.id_rol.cargo != 'Jefe de Tienda' %}
 
